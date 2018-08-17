@@ -2,7 +2,8 @@ SOURCES := 	./utils.c \
 		./domain.c \
 		./phys_const.c \
 		./cosmology.c \
-		./correlation_function.c
+		./correlation_function.c \
+		./main.c
 
 OBJECTS := $(SOURCES:.c=.o)
 DOBJECTS := $(SOURCES:.c=.d)
