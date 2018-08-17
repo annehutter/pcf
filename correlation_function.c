@@ -167,13 +167,9 @@ void select_subbox_cartesian(boxparams_t *thisBoxparams, int *numSources, double
     free(*zsource);
     
     *numSources = counter;
-    tmpXsource = realloc(tmpXsource, (*numSources) * sizeof(double));
-    tmpYsource = realloc(tmpYsource, (*numSources) * sizeof(double));
-    tmpZsource = realloc(tmpZsource, (*numSources) * sizeof(double));
-        
-    *xsource = tmpXsource;
-    *ysource = tmpYsource;
-    *zsource = tmpZsource;
+    *xsource = realloc(tmpXsource, (*numSources) * sizeof(double));
+    *ysource = realloc(tmpYsource, (*numSources) * sizeof(double));
+    *zsource = realloc(tmpZsource, (*numSources) * sizeof(double));
 }
 
 /* --------------------------------------------------------- */
@@ -259,9 +255,9 @@ void generate_randoms_ra_dec(domain_t *thisDomain, cosmparams_t *thisCosmparams,
     
     generate_randoms_cartesian(thisDomain, thisBoxparams, numSources, numRand, &xrand, &yrand, &zrand);
 
-    *rRand = allocate_array_double(*numRand, "rRand");
-    *cosThetaRand = allocate_array_double(*numRand, "cosThetaRand");
-    *phiRand = allocate_array_double(*numRand, "phiRand");
+    *rRand = NULL;
+    *cosThetaRand = NULL;
+    *phiRand = NULL;
     
     generate_ra_dec(thisCosmparams, thisBoxparams, *numRand, xrand, yrand, zrand, rRand, cosThetaRand, phiRand);
 
