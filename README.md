@@ -21,7 +21,7 @@ Parallel run
 FFTW3
 '''''
 
-Go to the `FFTW webpage <http://www.fftw.org/download.html>`__ to install fftw3. Ensure to compile the library with the ``enable-mpi`` flag for parallel runs
+Go to the `FFTW webpage <http://www.fftw.org/download.html>` to install fftw3. Ensure to compile the library with the ``enable-mpi`` flag for parallel runs
 ::
     
     $ ./configure --enable-mpi
