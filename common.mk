@@ -6,10 +6,12 @@ FFTW_CFLAGS := -I$(FFTW3DIR)
 FFTW3LIBDIR :=/usr/local/lib64
 FFTW3_LINK := -L$(FFTW3LIBDIR) -lfftw3
 
-SPRNGDIR :=/home/anne/Programs/sprng2.0/include
-SPRNG_CFLAGS := -I$(SPRNGDIR)
-SPRNGLIBDIR :=/home/anne/Programs/sprng2.0/lib
-SPRNG_LINK := -L$(SPRNGLIBDIR) -lsprng
+ifdef USE-SPRNG
+    SPRNGDIR :=/home/anne/Programs/sprng2.0/include
+    SPRNG_CFLAGS := -I$(SPRNGDIR)
+    SPRNGLIBDIR :=/home/anne/Programs/sprng2.0/lib
+    SPRNG_LINK := -L$(SPRNGLIBDIR) -lsprng
+endif
 
 # GSL_FOUND := $(shell gsl-config --version)
 # ifndef GSL_FOUND
