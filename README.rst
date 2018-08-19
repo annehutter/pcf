@@ -38,7 +38,7 @@ Download & Build
 
 ::
 
-    $ git clone https://github.com/annehutter/pcorrfunc.git
+    $ git clone https://github.com/annehutter/pfc.git
     $ make
 
 This will download the code and first test case from the github directory and compile the source code.
@@ -49,7 +49,7 @@ Execution
 The first test case can then be run by
 ::
 
-    $ mpiexec -np #PROCESSORS ./pcorrfunc
+    $ mpiexec -np #PROCESSORS ./pfc
 
     
 Functions
