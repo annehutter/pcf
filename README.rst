@@ -57,7 +57,7 @@ Functions
 
 The library contains currently three functions:
 
-- **calc_3Dcorrfunc_cartesian** *(int numPoints, double *x, double *y, double *z, boxparams_t *thisBoxparams, domain_t *thisDomain, char *outputName)*: computes the 3D correlation function from a list of x, y, z coordinates.
+- **calc_3Dcorrfunc_cartesian** (*int* ``numPoints``, *double** ``x``, *double** ``y``, *double** ``z``, *boxparams_t** ``thisBoxparams``, *domain_t** ``thisDomain``, *char** ``outputName``): computes the 3D correlation function from a list of x, y, z coordinates.
 - **calc_ACF_cartesian** *(int numPoints, double *x, double *y, double *z, boxparams_t *thisBoxparams, cosmparams_t *thisCosmparams, domain_t *thisDomain, char *outputName)*: computes the angular correlation function for the box or a set of points located at redshift z from a list of x, y, z coordinates.
 - **calc_ACF_ra_dec** *(int numPoints, double *cosTheta, double *phi, boxparams_t *thisBoxparams, cosmparams_t *thisCosmparams, domain_t *thisDomain, char *outputName)*: computes the angular correlation function for the box or a set of points located at redshift z from a list of cos(theta), phi coordinates.
 
