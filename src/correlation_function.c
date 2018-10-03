@@ -214,8 +214,8 @@ void generate_randoms_cartesian(domain_t *thisDomain, boxparams_t *thisBoxparams
     }
     free_sprng(stream);
 #else
-//     srand(time(NULL)*(thisDomain->thisRank + 1)*getpid());
-    srand(186389 * (thisDomain->thisRank + 1));
+    srand(time(NULL)*(thisDomain->thisRank + 1)*getpid());
+//     srand(186389 * (thisDomain->thisRank + 1));
     
     for(int source=0; source<*numRand; source++)
     {

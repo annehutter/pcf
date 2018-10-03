@@ -13,6 +13,10 @@ ifdef USE-SPRNG
     SPRNG_LINK := -L$(SPRNGLIBDIR) -lsprng
 endif
 
+ifdef BUILD-LIB
+    BUILD_CFLAGS := -fPIC
+endif
+
 # GSL_FOUND := $(shell gsl-config --version)
 # ifndef GSL_FOUND
 #   $(error $(ccred)Error:$(ccreset) GSL not found in path - please install GSL before installing $(DISTNAME).$(VERSION) $(ccreset))
@@ -23,7 +27,7 @@ endif
 
 LDFLAGS := -lm $(FFTW3_LINK) $(SPRNG_LINK)
 # LDFLAGS := -lm $(GSL_LINK) $(FFTW3_LINK)
-CFLAGS := -c -std=c99 -march=native $(WARNING) $(OPTIMIZE) $(FFTW_CFLAGS) $(SPRNG_CFLAGS)
+CFLAGS := -c -std=c99 -march=native $(WARNING) $(OPTIMIZE) $(FFTW_CFLAGS) $(SPRNG_CFLAGS) $(BUILD_CFLAGS)
 # CFLAGS := -c -std=c99 -march=native $(WARNING) $(OPTIMIZE) $(GSL_CFLAGS) $(FFTW_CFLAGS)
 
 UNAME := $(shell uname)
