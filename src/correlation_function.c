@@ -5,6 +5,8 @@
 #include <assert.h>
 #include <unistd.h>
 #include <time.h>
+#include <stdint.h>
+
 #ifdef __MPI
 #include <fftw3-mpi.h>
 #include <mpi.h>
@@ -181,9 +183,10 @@ void select_subbox_cartesian(boxparams_t *thisBoxparams, int *numSources, double
 void generate_randoms_cartesian(domain_t *thisDomain, boxparams_t *thisBoxparams, int numSources, int *numRand, double **xrand, double **yrand, double **zrand)
 {
     int thisRank = thisDomain->thisRank;
-    int recvNumSources = 0;
     
 #ifdef __MPI
+    int recvNumSources = 0;
+
     MPI_Allreduce(&numSources, &recvNumSources, 1, MPI_INT, MPI_SUM, MPI_COMM_WORLD);
     *numRand = 10 * recvNumSources / thisDomain->size;
 #else
@@ -580,14 +583,16 @@ void count_pairs_r(domain_t *thisDomain, int numSources, double *xsource, double
     /* INITIALIZATION */
     int thisRank = thisDomain->thisRank;
     int size = thisDomain->size;
+#ifdef __MPI    
     int destRank = thisRank;
     int sendingRank = thisRank;
-    
+
     int recvNumSources = 0;
     double *recvXsource = NULL, *recvYsource = NULL, *recvZsource = NULL;
     
     int recvNumRand = 0;
     double *recvXrand = NULL, *recvYrand = NULL, *recvZrand = NULL;
+#endif
     
     /* LOOP OVER ALL COMBINATIONS OF RANKS */
     if(thisRank == 0) printf("Computing distances between pairs\n");
@@ -596,12 +601,12 @@ void count_pairs_r(domain_t *thisDomain, int numSources, double *xsource, double
 #endif
     for(int j=0; j<0.5*size+1; j++)
     {
+#ifdef __MPI
         /* rank to send galaxies to: destRank is by j different to thisRank */
         destRank = (thisRank + size + j) % size;
         /* rank from which galaxies are received */
         sendingRank = (thisRank + size - j) % size;
                 
-#ifdef __MPI
         if(destRank != thisRank && sendingRank != thisRank)
         {
             if(size%2 == 0 && j >= size/2)
@@ -689,6 +694,7 @@ void count_pairs_cosTheta(domain_t *thisDomain, int numSources, double *cosTheta
     /* INITIALIZATION */
     int thisRank = thisDomain->thisRank;
     int size = thisDomain->size;
+#ifdef __MPI
     int destRank = thisRank;
     int sendingRank = thisRank;
     
@@ -697,7 +703,8 @@ void count_pairs_cosTheta(domain_t *thisDomain, int numSources, double *cosTheta
     
     int recvNumRand = 0;
     double *recvCosThetaRand = NULL, *recvPhiRand = NULL;
-    
+#endif    
+
     /* LOOP OVER ALL COMBINATIONS OF RANKS */
     if(thisRank == 0) printf("Computing distances between pairs\n");
 #ifdef __MPI
@@ -705,12 +712,12 @@ void count_pairs_cosTheta(domain_t *thisDomain, int numSources, double *cosTheta
 #endif
     for(int j=0; j<0.5*size+1; j++)
     {
+#ifdef __MPI
         /* rank to send galaxies to: destRank is by j different to thisRank */
         destRank = (thisRank + size + j) % size;
         /* rank from which galaxies are received */
         sendingRank = (thisRank + size - j) % size;
                 
-#ifdef __MPI
         if(destRank != thisRank && sendingRank != thisRank)
         {
             if(size%2 == 0 && j >= size/2)

@@ -5,6 +5,8 @@
 #include <assert.h>
 #include <unistd.h>
 #include <time.h>
+#include <stdint.h>
+
 #ifdef __MPI
 #include <fftw3-mpi.h>
 #include <mpi.h>
@@ -32,6 +34,7 @@ void count_pairs_DR_r(domain_t *thisDomain, int numSources, double *xsource, dou
     /* INITIALIZATION */
     int thisRank = thisDomain->thisRank;
     int size = thisDomain->size;
+#ifdef __MPI
     int destRank = thisRank;
     int sendingRank = thisRank;
     
@@ -40,7 +43,8 @@ void count_pairs_DR_r(domain_t *thisDomain, int numSources, double *xsource, dou
     
     int recvNumRand = 0;
     double *recvXrand = NULL, *recvYrand = NULL, *recvZrand = NULL;
-    
+#endif    
+
     /* LOOP OVER ALL COMBINATIONS OF RANKS */
     if(thisRank == 0) printf("Computing distances between pairs\n");
 #ifdef __MPI
@@ -48,12 +52,12 @@ void count_pairs_DR_r(domain_t *thisDomain, int numSources, double *xsource, dou
 #endif
     for(int j=0; j<0.5*size+1; j++)
     {
+#ifdef __MPI
         /* rank to send galaxies to: destRank is by j different to thisRank */
         destRank = (thisRank + size + j) % size;
         /* rank from which galaxies are received */
         sendingRank = (thisRank + size - j) % size;
                 
-#ifdef __MPI
         if(destRank != thisRank && sendingRank != thisRank)
         {
             if(size%2 == 0 && j >= size/2)
@@ -132,6 +136,7 @@ void count_pairs_DR_cosTheta(domain_t *thisDomain, int numSources, double *cosTh
     /* INITIALIZATION */
     int thisRank = thisDomain->thisRank;
     int size = thisDomain->size;
+#ifdef __MPI
     int destRank = thisRank;
     int sendingRank = thisRank;
     
@@ -140,6 +145,7 @@ void count_pairs_DR_cosTheta(domain_t *thisDomain, int numSources, double *cosTh
     
     int recvNumRand = 0;
     double *recvCosThetaRand = NULL, *recvPhiRand = NULL;
+#endif
     
     /* LOOP OVER ALL COMBINATIONS OF RANKS */
     if(thisRank == 0) printf("Computing distances between pairs\n");
@@ -148,12 +154,12 @@ void count_pairs_DR_cosTheta(domain_t *thisDomain, int numSources, double *cosTh
 #endif
     for(int j=0; j<0.5*size+1; j++)
     {
+#ifdef __MPI
         /* rank to send galaxies to: destRank is by j different to thisRank */
         destRank = (thisRank + size + j) % size;
         /* rank from which galaxies are received */
         sendingRank = (thisRank + size - j) % size;
                 
-#ifdef __MPI
         if(destRank != thisRank && sendingRank != thisRank)
         {
             if(size%2 == 0 && j >= size/2)
