@@ -3,6 +3,7 @@ SOURCES := 	./utils.c \
 		./phys_const.c \
 		./cosmology.c \
 		./correlation_function.c \
+		./cross_correlation_function.c \
 		./main.c
 
 OBJECTS := $(SOURCES:.c=.o)

@@ -20,6 +20,7 @@
 #include "cosmology.h"
 #include "domain.h"
 #include "correlation_function.h"
+#include "cross_correlation_function.h"
 
 /* --------------------------------------------------------- */
 /* EXMPLE MAIN                                               */
@@ -43,7 +44,7 @@ int main (int argc, /*const*/ char * argv[]) {
     t1 = time(NULL);
 #endif
     
-    int whichCorrFunc = 1;      // 0 = 3D correlation function, 1 = angular correlation function
+    int whichCorrFunc = 10;      // 0 = 3D correlation function, 1 = angular correlation function
     
     int gridsize = 256;         // only requied for domain decomposition according to FFTW (not relevant for correlation function)
     
@@ -112,6 +113,10 @@ int main (int argc, /*const*/ char * argv[]) {
         calc_3Dcorrfunc_cartesian(numSources, xsource, ysource, zsource, subbox, domain, "test_3D_corr.dat");
     else if (whichCorrFunc == 1)
         calc_ACF_cartesian(numSources, xsource, ysource, zsource, subbox, cosm, domain, "test_ACF_from_cartesian.dat");
+    else if (whichCorrFunc == 10)
+        calc_cross_3Dcorrfunc_cartesian(numSources, xsource, ysource, zsource, numSources, xsource, ysource, zsource, subbox, domain, "test_3D_crosscorr.dat");
+    else if (whichCorrFunc == 11)
+        calc_cross_ACF_cartesian(numSources, xsource, ysource, zsource, numSources, xsource, ysource, zsource, subbox, cosm, domain, "test_crossACF_from_cartesian.dat");
     else
         printf("Other options (e.g. ACF from cosTheta, phi values) are not included in this example main.\n");
 
