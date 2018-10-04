@@ -65,9 +65,9 @@ double calcComDist(double h, double omega_m, double omega_l, double zmax, double
     }
     
     z = zmax;
-//     printf("H(z=%e) = %e\n", z, hubble_flatuniverse(h, omega_m, omega_l, z));
+//     printf("H(z=%e) = %e\n", z, hubble_flatuniverse(h, omega_l, omega_m, z));
     for(int i=0; i<N; i++){
-        sum += clight_cm / hubble_flatuniverse(h, omega_m, omega_l, z) * delta_z;
+        sum += clight_cm / hubble_flatuniverse(h, omega_l, omega_m, z) * delta_z;
         z = z - delta_z;
     }
     
@@ -89,7 +89,7 @@ double calcPhysDist(double h, double omega_m, double omega_l, double zmax, doubl
     
     z = zmax;
     for(int i=0; i<N; i++){
-        sum += clight_cm /(hubble_flatuniverse(h, omega_m, omega_l, z) * (1.+z)) * delta_z;
+        sum += clight_cm /(hubble_flatuniverse(h, omega_l, omega_m, z) * (1.+z)) * delta_z;
         z = z - delta_z;
     }
     
@@ -111,7 +111,7 @@ double calcLumDist(double h, double omega_m, double omega_l, double zmax, double
     
     z = zmax;
     for(int i=0; i<N; i++){
-        sum += clight_cm /hubble_flatuniverse(h, omega_m, omega_l, z) * delta_z;
+        sum += clight_cm /hubble_flatuniverse(h, omega_l, omega_m, z) * delta_z;
         z = z - delta_z;
     }
     sum = (1. + zmax) * sum;
