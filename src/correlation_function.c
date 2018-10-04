@@ -422,7 +422,7 @@ int get_distance_r_bin(double distance, int distanceInLog, int numBins)
     }
     else
     {
-        distanceBin = (int)(0.5 * log10(distance) / 3. * (double)numBins);
+        distanceBin = (int)((log10(0.5 * distance) / 3. + 1.) * (double)numBins);
     }
     
     return distanceBin;
